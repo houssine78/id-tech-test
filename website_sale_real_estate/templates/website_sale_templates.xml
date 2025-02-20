@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="checkout_layout_real_estate_project" inherit_id="website_sale.checkout_layout">
+        <xpath expr="//div[@id='o_wsale_total_accordion_item']" position="before">
+            <div class="border-top py-4 px-3" t-if="website_sale_order.real_estate_project_id">
+                <div class="text-muted">Your real estate project</div>
+                <div class="mt-2" t-out="website_sale_order.real_estate_project_id.name"/>
+            </div>
+        </xpath>
+    </template>
+
+    <template id="real_estate_project" name="Real Estate Project">
+        <t t-call="website_sale.checkout_layout">
+            <div class="col">
+                <h3 class="mb-4">Real Estate Project</h3>
+                <div t-attf-class="alert alert-warning alert-project-completed {{website_sale_order.real_estate_project_state == 'completed' and 'd-none'}}">
+                    <i class="fa fa-exclamation-triangle me-2" aria-hidden="true"/> The selected project is completed.
+                </div>
+                <div class="clearfix" />
+                <div class="row">
+                    <div t-attf-class="mb-3 #{real_estate_project in errors and 'o_has_error' or ''} col-lg-6 div_real_estate_project">
+                        <label class="col-form-label" for="real_estate_project">Real Estate Project</label>
+                        <select id="real_estate_project" name="real_estate_project" t-attf-class="form-select #{real_estate_project in errors and 'is-invalid' or ''}">
+                            <option value="">Choose a project...</option>
+                            <t t-foreach="real_estate_projects" t-as="real_estate_project">
+                                <option t-att-value="real_estate_project.id" t-att-selected="real_estate_project.id == real_estate_project_id and 'selected' or None" t-att-data-is-completed="real_estate_project.state == 'completed' and 1 or 0" t-out="real_estate_project.name"/>
+                            </t>
+                        </select> 
+                        <input id="select_project" name="select_project" type="button" class="btn btn-primary" value="Select this project"/>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>
