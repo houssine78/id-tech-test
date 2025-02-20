@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="view_order_form" model="ir.ui.view">
+		<field name="name">sale.order.form</field>
+		<field name="model">sale.order</field>
+		<field name="inherit_id" ref="sale.view_order_form" />
+		<field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_credit_warning']/.." position="before">
+                <div
+                    class="alert alert-warning" role="alert"
+                    invisible="real_estate_project_state != 'completed'">
+                    <span>Warning: This quote contains an completed real estate project</span>
+                </div>
+            </xpath>
+            <field name="validity_date" position="before">
+                <field name="real_estate_project_state" />
+                <field name="real_estate_project_id" />
+            </field>
+		</field>
+	</record>
+</odoo>

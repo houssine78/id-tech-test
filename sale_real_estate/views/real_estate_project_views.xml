@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="real_estate_project_tree_view" model="ir.ui.view">
+        <field name="name">real.estate.project.tree.view</field>
+        <field name="model">real.estate.project</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name" />
+                <field name="account_analytic_id" />
+                <field name="state" />
+            </list>
+        </field>
+    </record>
+
+    <record id="real_estate_project_form_view" model="ir.ui.view">
+        <field name="name">real.estate.project.form.view</field>
+        <field name="model">real.estate.project</field>
+        <field name="arch" type="xml">
+            <form string="Real Estate Project">
+	            <header>
+    	            <button string="Plan" type="object" name="action_plan" invisible="state == 'planned'" class="btn-primary"/>
+                    <button string="Ongoing" type="object" name="action_ongoing" invisible="state == 'ongoing'" />
+                    <button string="Finish" type="object" name="action_finish" invisible="state not in ('planned','ongoing')"  class="btn-success"/>
+	                <field name="state" widget="statusbar" options="{'clickable': '1'}"/>
+	            </header>
+	            <sheet name="product_form">
+	                <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active" />
+	                <widget name="web_ribbon" title="Completed" bg_color="text-bg-success" invisible="state != 'completed'" />
+	                <group>
+		                <field name="name" />
+		                <field name="account_analytic_id" />
+		                <field name="description" />
+		                <field name="active" invisible="True" />
+	                </group>
+	            </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="real_estate_project_search_view" model="ir.ui.view">
+        <field name="name">real.estate.project.search</field>
+        <field name="model">real.estate.project</field>
+        <field name="arch" type="xml">
+            <search string="Product">
+                <field name="name" string="Poject name" filter_domain="[('name', 'ilike', self)]" />
+                <separator/>
+                <filter string="Archived" name="inactive" domain="[('active','=',False)]" />
+                <group expand="1" string="Group By">
+                    <filter string="Analytic account" name="analytic_account" context="{'group_by':'account_analytic_id'}" />
+                    <filter string="Status" name="state" context="{'group_by':'state'}" />
+                </group>
+            </search>
+        </field>
+    </record>
+
+     <record id="action_real_estate_projects" model="ir.actions.act_window">
+        <field name="name">Real estate projects</field>
+        <field name="res_model">real.estate.project</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="real_estate_project_search_view"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new Real Estate Project.
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_real_estate_project"
+        name="Real estate projects"
+        action="action_real_estate_projects"
+        parent="sale.sale_order_menu"
+        groups="sales_team.group_sale_salesman"
+        sequence="50"/>
+</odoo>
