@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_saleorder_document_real_estate_project" inherit_id="sale.report_saleorder_document">
+        <xpath expr="//div[@name='expiration_date']" position="after">
+            <div t-if="doc.real_estate_project_id" class="col" name="real_estate_project">
+               <strong>Real Estate Project</strong>
+               <div t-field="doc.real_estate_project_id.name"/>
+           </div>
+        </xpath>
+    </template>
+</odoo>
