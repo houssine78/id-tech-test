@@ -13,7 +13,7 @@
                 </div>
             </xpath>
             <field name="validity_date" position="before">
-                <field name="real_estate_project_state" />
+                <field name="real_estate_project_state" invisible="True"/>
                 <field name="real_estate_project_id" />
             </field>
 		</field>

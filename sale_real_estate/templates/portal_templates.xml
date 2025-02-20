@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="portal_my_orders_real_estate_project" inherit_id="sale.portal_my_orders">
+        <xpath expr="//thead//tr/th[1]" position="after">
+            <th class="text-end">Real Estate Project</th>
+        </xpath>
+        <xpath expr="//t[@t-out='order.name']/.." position="after">
+            <td class="text-end"><t t-out="order.real_estate_project_id.name or ''"/></td>
+        </xpath>
+    </template>
+
+    <template id="sale_order_portal_content_real_estate_project" inherit_id="sale.sale_order_portal_content">
+        <xpath expr="//tbody[@id='sale_info_table']" position="inside">
+            <tr t-if="sale_order.real_estate_project_id">
+               <th class="ps-0 pb-0">Real Estate Project:</th>
+               <td class="w-100 pb-0 text-wrap"><span t-field="sale_order.real_estate_project_id.name"/></td>
+           </tr>
+        </xpath>
+    </template>
+</odoo>

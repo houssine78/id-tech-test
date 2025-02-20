@@ -8,7 +8,10 @@ class SaleOrder(models.Model):
         'real.estate.project',
         copy=False
     )
-    real_estate_project_state = fields.Selection(related="real_estate_project_id.state")
+    real_estate_project_state = fields.Selection(
+        string="Real estate project state",
+        related="real_estate_project_id.state"
+    )
 
     def compute_analytic_distribution(self, real_estate_project_id):
         realEstateProject = self.env['real.estate.project']

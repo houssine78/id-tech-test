@@ -15,7 +15,8 @@
     "data": [
         "security/ir.model.access.csv",
         "views/sale_views.xml",
-        "views/real_estate_project_views.xml"
+        "views/real_estate_project_views.xml",
+        "templates/portal_templates.xml"
     ],
     "installable": True,
 }
